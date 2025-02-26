@@ -1,0 +1,25 @@
+{
+  "name": "canvas-mails",
+  "version": "1.0.0",
+  "description": "Import Canvas emails and send them",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:rbgtk/canvas-mails"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@types/dotenv": "^6.1.1",
+    "dotenv": "^16.4.7",
+    "ts-postgres": "^2.0.4"
+  }
+}
