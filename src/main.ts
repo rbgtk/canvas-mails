@@ -45,7 +45,7 @@ try {
   
   console.log(tables)
 
-  for (const table of ...tables) {
+  for await (const table of tables) {
     console.log(table)
   }
 
