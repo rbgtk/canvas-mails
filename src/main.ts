@@ -41,7 +41,9 @@ try {
   const tables = await client.query(tquery)
 
   for (const table of tables) {
-    const mquery = `SELECT id, to, subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $2)`
+    console.log(client.transactionStatus)
+
+    /*const mquery = `SELECT id, to, subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $2)`
     const messages = await client.query(mquery, [table.table_name, table.table_name])
 
     for await (const message of messages) {
@@ -60,7 +62,7 @@ try {
           const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
           client.query(insert, [table.table_name, message.id])
       }) */
-    }
+//    }
   }
 } catch (error) {
   console.error(error)
