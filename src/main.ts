@@ -39,8 +39,8 @@ try {
 
   const tquery = "SELECT table_name FROM information_schema.tables WHERE table_name ~ '^messages_(\\d+)_(\\d+)$'"
   const tables = await client.query(tquery)
-  
-  for await (const table of tables) {
+
+  for (const table of tables) {
     const mquery = `SELECT id, to, subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $2)`
     const messages = await client.query(mquery, [table.table_name, table.table_name])
 
