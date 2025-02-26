@@ -45,6 +45,10 @@ try {
   
   console.log(tables)
 
+  for (const table of ...tables) {
+    console.log(table)
+  }
+
   /*for (const table of tables.rows) {
     const mquery = "SELECT id, to, subject, html_body FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
     const messages = await client.query(mquery, [table.table_name])
