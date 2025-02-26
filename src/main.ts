@@ -25,6 +25,8 @@ const client = await connect({
   database: db_name
 })
 
+console.log(client)
+
 const transporter = mailer.createTransport({
   host: smtp_host,
   port: smtp_port,
