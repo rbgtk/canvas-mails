@@ -42,7 +42,11 @@ try {
 
   for (const table of tables) {
 
-    const statement = await client.prepare(`SELECT id, to, subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $2)`)
+    const mquery = `SELECT id, to, subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $2)`
+
+    console.log(mquery)
+
+    const statement = await client.prepare(mquery)
     const messages = await statement.execute(table.table_name, table.table_name)
 
     for await (const message of messages) {
