@@ -38,19 +38,15 @@ const transporter = mailer.createTransport({
 try {
 
   const tquery = "SELECT table_name FROM information_schema.tables WHERE table_name ~ '^messages_(\d+)_(\d+)$'"
-  const result = await client.query(tquery)
+  const tables = await client.query(tquery)
   
-  console.log(result)
-
-  const tables = [...result]
-
   console.log(tables)
 
-  for (const table of tables) {
+  for (const table of tables.rows) {
     const mquery = "SELECT id, to, subject, html_body FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
-    const messages = client.query(mquery, [table.table_name])
+    const messages = await client.query(mquery, [table.table_name])
 
-    for await (const message of messages) {
+    for (const message of messages.rows) {
       const options = {
         from: smtp_from,
         to: message.to,
