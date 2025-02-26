@@ -25,8 +25,6 @@ const client = await connect({
   database: db_name
 })
 
-console.log(client)
-
 const transporter = mailer.createTransport({
   host: smtp_host,
   port: smtp_port,
@@ -39,21 +37,14 @@ const transporter = mailer.createTransport({
 
 try {
 
-//  const tquery = "SELECT table_name FROM information_schema.tables WHERE table_name ~ '^messages_(\d+)_(\d+)$'"
   const tquery = "SELECT table_name FROM information_schema.tables WHERE table_name ~ '^messages_(\\d+)_(\\d+)$'"
   const tables = await client.query(tquery)
   
-  console.log(tables)
-
   for await (const table of tables) {
-    console.log(table)
-  }
-
-  /*for (const table of tables.rows) {
     const mquery = "SELECT id, to, subject, html_body FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
     const messages = await client.query(mquery, [table.table_name])
 
-    for (const message of messages.rows) {
+    for await (const message of messages) {
       const options = {
         from: smtp_from,
         to: message.to,
@@ -63,14 +54,14 @@ try {
 
       console.log(options)
 
-      await transporter.sendMail(options).then((info) => {
+      /* await transporter.sendMail(options).then((info) => {
           console.log(`Email sent: ${info.response}`)
   
           const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
           client.query(insert, [table.table_name, message.id])
-      })
+      }) */
     }
-  }*/
+  }
 } catch (error) {
   console.error(error)
 } finally {
