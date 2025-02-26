@@ -56,7 +56,7 @@ try {
         from: smtp_from,
         to: row.to,
         subject: row.subject,
-        html: row.body
+        html: row.html_body
       }
 
       console.log(options)
