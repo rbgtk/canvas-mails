@@ -59,13 +59,14 @@ try {
         html: row.body
       }
 
-      await transporter.sendMail(options)
-        .then((info) => {
+      console.log(options)
+
+      /*await transporter.sendMail(options).then((info) => {
           console.log(`Email sent: ${info.response}`)
   
           const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
           client.query(insert, [table, row.id])
-        })
+      })*/
     }
 
   }
