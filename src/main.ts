@@ -48,7 +48,7 @@ try {
   ]
 
   for (const table of tables) {
-    const query = "SELECT * FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
+    const query = "SELECT id, to, subject, html_body FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
     const result = await client.query(query, [table])
     
     for await (const row of result) {
