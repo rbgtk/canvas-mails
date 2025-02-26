@@ -40,6 +40,7 @@ try {
   const tquery = "SELECT table_name FROM information_schema.tables WHERE table_name ~ '^messages_(\d+)_(\d+)$'"
   const tables = await client.query(tquery) 
 
+  console.log(tables)
   console.log(`Found ${tables.rows.length} tables`)
 
   for await (const table of tables) {
