@@ -16,3 +16,18 @@ const client = await connect({
   password: db_pass,
   database: db_name
 })
+
+try {
+
+  const query = "SELECT * FROM emails WHERE id NOT IN (SELECT email_id FROM sent_emails)"
+  const result = await client.query(query)
+
+  for await (const row of result) {
+    console.log(`Found row: ${row}`)
+  }
+
+} catch (error) {
+  console.error(error)
+} finally {
+  await client.end()
+}
