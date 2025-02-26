@@ -36,28 +36,38 @@ const transporter = mailer.createTransport({
 })
 
 try {
+  
+  const tables = [
+    "messages_05",
+    "messages_06",
+    "messages_07",
+    "messages_08",
+    "messages_09",
+    "messages_10",
+    "messages_11"
+  ]
 
-  const query = "SELECT * FROM emails WHERE id NOT IN (SELECT email_id FROM sent_emails)"
-  const result = await client.query(query)
+  for (const table of tables) {
+    const query = "SELECT * FROM $1 WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)"
+    const result = await client.query(query, [table])
+    
+    for await (const row of result) {
+      const options = {
+        from: smtp_from,
+        to: row.to,
+        subject: row.subject,
+        html: row.body
+      }
 
-  for await (const row of result) {
-    console.log(`Found row: ${row}`)
-
-    const options = {
-      from: smtp_from,
-      to: row.to,
-      subject: row.subject,
-      html: row.body
+      await transporter.sendMail(options)
+        .then((info) => {
+          console.log(`Email sent: ${info.response}`)
+  
+          const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
+          client.query(insert, [table, row.id])
+        })
     }
 
-    await transporter.sendMail(options)
-      .then((info) => {
-        console.log(`Email sent: ${info.response}`)
-
-        const insert = "INSERT INTO sent_emails (email_id) VALUES ($1)"
-        client.query(insert, [row.id])
-      })
-    })
   }
 
 } catch (error) {
