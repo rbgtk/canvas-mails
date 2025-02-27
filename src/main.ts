@@ -47,23 +47,23 @@ try {
 
     for await (const message of messages) {
       
-      console.log(typeof message.html_body)
-
-      /*const options = {
+      const options = {
         from: smtp_from,
         to: message.to,
         subject: message.subject,
         html: message.html_body
       }
 
-      console.log(options)
-
-      /* await transporter.sendMail(options).then((info) => {
+      if (message.to === "robby.goetinck@outlook.com") {
+        console.log(`Sending message to ${options.to} with subject '${options.subject}'`)
+        /*await transporter.sendMail(options).then((info) => {
           console.log(`Email sent: ${info.response}`)
   
           const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
           client.query(insert, [table.table_name, message.id])
-      }) */
+        })*/
+        
+      }
     }
   }
 } catch (error) {
