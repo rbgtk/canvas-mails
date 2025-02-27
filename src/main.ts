@@ -55,14 +55,12 @@ try {
       }
 
       if (message.to === "robby.goetinck@outlook.com") {
-        console.log(`Sending message to ${options.to} with subject '${options.subject}'`)
-        /*await transporter.sendMail(options).then((info) => {
-          console.log(`Email sent: ${info.response}`)
+        await transporter.sendMail(options).then((info) => {
+          console.log(`Email sent to ${options.to}: ${info.response}`)
   
           const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
           client.query(insert, [table.table_name, message.id])
-        })*/
-        
+        })
       }
     }
   }
