@@ -46,7 +46,10 @@ try {
     const messages = await client.query(mquery, [table.table_name])
 
     for await (const message of messages) {
-      const options = {
+      
+      console.log(message)
+
+      /*const options = {
         from: smtp_from,
         to: message.to,
         subject: message.subject,
