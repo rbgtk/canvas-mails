@@ -1,5 +1,5 @@
 module.exports = {
-  apps = [{
+  apps: [{
     name: "Canvas Mailer",
     script: "dist/main.js",
     instances: 1,
