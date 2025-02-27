@@ -47,7 +47,7 @@ try {
 
     for await (const message of messages) {
       
-      console.log(message)
+      console.log(typeof message.message)
 
       /*const options = {
         from: smtp_from,
