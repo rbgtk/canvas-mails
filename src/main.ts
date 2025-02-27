@@ -28,7 +28,7 @@ const client = await connect({
 const transporter = mailer.createTransport({
   host: smtp_host,
   port: smtp_port,
-  secure: smtp_secure,
+  secure: false,
   auth: {
     user: smtp_user,
     pass: smtp_pass
