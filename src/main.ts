@@ -60,13 +60,15 @@ try {
         html: message.html_body
       }
 
+      let result = `Sending message ${message.id} to ${message.to}: `
+
       await transporter.sendMail(options).then((info) => {
-        console.log(`Email sent to ${options.to}: ${info.response}`)
+        console.log(result + info.response)
   
         const insert = "INSERT INTO sent_emails (email_table, message_id) VALUES ($1, $2)"
         client.query(insert, [table.table_name, message.id])
       }).catch((error) => {
-        console.error(error)
+        console.error(result + error)
       })
     }
   }
