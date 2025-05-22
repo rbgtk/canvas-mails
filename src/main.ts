@@ -49,9 +49,7 @@ try {
     const mquery = `SELECT id, "to", subject, html_body FROM ${table.table_name} WHERE id NOT IN (SELECT message_id FROM sent_emails WHERE email_table = $1)`
     const messages = await client.query(mquery, [table.table_name])
 
-    if (messages.rows.length > 0) {
-      console.log(`Found ${messages.rows.length} messages in ${table.table_name}`)
-    }
+    console.log(`Found ${messages.rows.length} messages in ${table.table_name}`)
 
     for await (const message of messages) {
       
