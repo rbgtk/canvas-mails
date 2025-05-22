@@ -3,6 +3,6 @@ module.exports = {
     name: "Canvas Mailer",
     script: "dist/main.js",
     instances: 1,
-    cron_restart: "* * * * *"
+    cron_restart: "*/5 * * * *"
   }]
 }
